@@ -1,98 +1,125 @@
 #  Hola Mundo App — Ciclo DevOps Completo
 
-**Autor:** jeacarlos3015  
-**Stack:** Node.js + Express + Docker
+**Autor:** Jean Cralos Terrero   
+**Stack:** Node.js · Express · Docker · Docker Hub
 
 ---
 
-##  Estructura del Proyecto
+## ¿Qué es este proyecto?
+
+Una aplicación web sencilla que muestra una página "Hola Mundo". El objetivo es practicar el **ciclo completo de DevOps**:
+
+> Escribir código → Empaquetar con Docker → Subir a Docker Hub
+
+---
+
+## 📁 Estructura del proyecto
 
 ```
 hola-mundo-app/
 ├── public/
-│   └── index.html       ← Frontend visual
-├── server.js            ← Servidor Express
-├── package.json         ← Dependencias Node
-├── Dockerfile           ← Instrucciones imagen Docker
-├── .dockerignore        ← Archivos excluidos del build
-└── .gitignore
+│   └── index.html     ← La página web que ve el usuario
+├── server.js          ← El servidor Node.js con Express
+├── package.json       ← Lista de dependencias del proyecto
+├── Dockerfile         ← Instrucciones para crear la imagen Docker
+└── .dockerignore      ← Archivos que Docker debe ignorar
 ```
 
 ---
 
-## 🖥️ COMANDOS — Terminal de VS Code
+## 🛠️ Tecnologías usadas
 
-### 1️⃣ Instalar dependencias localmente
+| Tecnología | ¿Para qué se usa? |
+|---|---|
+| **Node.js** | Ejecutar el servidor |
+| **Express** | Manejar las rutas HTTP |
+| **Docker** | Empaquetar la app en un contenedor |
+| **Docker Hub** | Alojar la imagen en la nube |
+
+---
+
+## 🚀 Cómo correr el proyecto
+
+### Opción A — Sin Docker (local)
+
 ```bash
+# 1. Instalar dependencias
 npm install
-```
 
-### 2️⃣ Probar la app localmente (sin Docker)
-```bash
+# 2. Arrancar el servidor
 node server.js
-# Abrir: http://localhost:3000
+
+# 3. Abrir en el navegador
+http://localhost:3000
 ```
 
-### 3️⃣ Construir la imagen Docker
+### Opción B — Con Docker
+
 ```bash
+# 1. Construir la imagen
 docker build -t jeacarlos3015/hola-mundo-app:latest .
+
+# 2. Correr el contenedor
+docker run -d -p 8080:3000 --name hola-mundo jeacarlos3015/hola-mundo-app:latest
+
+# 3. Abrir en el navegador
+http://localhost:8080
 ```
 
-### 4️⃣ Verificar que la imagen se creó
-```bash
-docker images
-```
+---
 
-### 5️⃣ Correr el contenedor localmente
-```bash
-docker run -d -p 3000:3000 --name hola-mundo jeacarlos3015/hola-mundo-app:latest
-# Abrir: http://localhost:3000
-```
+## 📤 Subir la imagen a Docker Hub
 
-### 6️⃣ Ver contenedores activos
 ```bash
-docker ps
-```
-
-### 7️⃣ Ver logs del contenedor
-```bash
-docker logs hola-mundo
-```
-
-### 8️⃣ Detener el contenedor
-```bash
-docker stop hola-mundo
-```
-
-### 9️⃣ Login en Docker Hub
-```bash
+# 1. Iniciar sesión en Docker Hub
 docker login
-# Usuario: jeacarlos3015
-# Password: (tu contraseña)
-```
 
-### 🔟 Subir imagen a Docker Hub
-```bash
+# 2. Subir la imagen
 docker push jeacarlos3015/hola-mundo-app:latest
 ```
 
-### 1️⃣1️⃣ Verificar en Docker Hub
+Ver imagen publicada:
 ```
 https://hub.docker.com/r/jeacarlos3015/hola-mundo-app
 ```
 
 ---
 
-##  Limpiar contenedor e imagen (opcional)
+## 🌐 Endpoints de la API
+
+| Ruta | Descripción |
+|---|---|
+| `GET /` | Página web principal |
+| `GET /api/info` | Info del contenedor en JSON |
+
+---
+
+## 🧹 Comandos útiles
+
 ```bash
+# Ver contenedores activos
+docker ps
+
+# Ver logs del contenedor
+docker logs hola-mundo
+
+# Detener el contenedor
+docker stop hola-mundo
+
+# Eliminar el contenedor
 docker rm hola-mundo
+
+# Eliminar la imagen
 docker rmi jeacarlos3015/hola-mundo-app:latest
 ```
 
 ---
 
-##  Endpoints disponibles
-| Ruta | Descripción |
-|------|-------------|
-| `GET /` | Página web principal |
-| `GET /api/info` | JSON con info del contenedor |
+## ✅ Ciclo DevOps completado
+
+```
+[1] Código escrito      →  Node.js + Express
+[2] Imagen creada       →  docker build
+[3] Contenedor corriendo →  docker run
+[4] Imagen publicada    →  docker push → Docker Hub
+```
