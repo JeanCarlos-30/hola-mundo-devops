@@ -19,11 +19,11 @@ RUN npm install --omit=dev
 COPY . .
 
 # Exponer el puerto que usa la app
-EXPOSE 3000
+EXPOSE 10000
 
 # Variable de entorno por defecto
 ENV NODE_ENV=production
-ENV PORT=3000
+ENV PORT=10000
 
 # Comando para arrancar la aplicación
 CMD ["node", "server.js"]
