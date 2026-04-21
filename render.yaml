@@ -1,0 +1,16 @@
+# render.yaml — Configuración del servicio en Render.com
+# Documentación: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: hola-mundo-app
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: oregon
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
