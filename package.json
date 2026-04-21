@@ -1,0 +1,12 @@
+{
+  "name": "hola-mundo-app",
+  "version": "1.0.0",
+  "description": "App Hola Mundo - Ciclo DevOps completo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

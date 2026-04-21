@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hola Mundo — DevOps</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #050810;
+      --card: #0d1117;
+      --border: #1e2a3a;
+      --accent: #00e5ff;
+      --accent2: #7c3aed;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --green: #22c55e;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Animated grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: gridDrift 20s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes gridDrift {
+      0%   { background-position: 0 0; }
+      100% { background-position: 40px 40px; }
+    }
+
+    /* Glowing orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.15;
+      z-index: 0;
+      animation: orbFloat 8s ease-in-out infinite;
+    }
+    .orb-1 { width: 500px; height: 500px; background: var(--accent2); top: -150px; left: -100px; animation-delay: 0s; }
+    .orb-2 { width: 400px; height: 400px; background: var(--accent); bottom: -100px; right: -50px; animation-delay: -4s; }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      width: min(640px, 92vw);
+    }
+
+    /* Top badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,229,255,0.07);
+      border: 1px solid rgba(0,229,255,0.2);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .badge-dot {
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 1.5s ease infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 10vw, 5.5rem);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    h1 span.cyan { color: var(--accent); }
+    h1 span.purple { color: #a78bfa; }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 16px;
+      letter-spacing: 0.05em;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    /* Info card */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 32px;
+      animation: fadeUp 0.6s 0.3s ease both;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    .card-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+    }
+    .card-row:last-child { border-bottom: none; }
+    .card-key { color: var(--muted); }
+    .card-val { color: var(--accent); font-weight: 500; }
+    .card-val.green { color: var(--green); }
+    .card-val.purple { color: #a78bfa; }
+
+    /* Docker command block */
+    .cmd-block {
+      background: #080c14;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 20px;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+    .cmd-label {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .cmd-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--text);
+    }
+    .cmd-prompt { color: var(--accent2); }
+    .cmd-text { color: #86efac; }
+
+    /* Footer */
+    .footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      animation: fadeUp 0.6s 0.5s ease both;
+    }
+    .footer span { color: var(--accent); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* API data populated via JS */
+    #container-id { color: #fbbf24; }
+  </style>
+</head>
+<body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="wrapper">
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Servidor activo — Docker Container
+    </div>
+
+    <h1>
+      <span class="cyan">Hola</span><br>
+      <span class="purple">Mundo</span>
+    </h1>
+
+    <p class="subtitle">// Ciclo completo DevOps · Node.js + Docker + Docker Hub</p>
+
+    <div class="card">
+      <div class="card-row">
+        <span class="card-key">Autor</span>
+        <span class="card-val green">jeacarlos3015</span>
+      </div>
+      <div class="card-row">
+        <span class="card-key">Tecnología</span>
+        <span class="card-val">Node.js + Express</span>
+      </div>
+      <div class="card-row">
+        <span class="card-key">Puerto</span>
+        <span class="card-val">3000</span>
+      </div>
+      <div class="card-row">
+        <span class="card-key">Contenedor ID</span>
+        <span class="card-val" id="container-id">cargando...</span>
+      </div>
+      <div class="card-row">
+        <span class="card-key">Timestamp</span>
+        <span class="card-val purple" id="timestamp">—</span>
+      </div>
+    </div>
+
+    <div class="cmd-block">
+      <div class="cmd-label">Imagen en Docker Hub</div>
+      <div class="cmd-line">
+        <span class="cmd-prompt">$</span>
+        <span class="cmd-text">docker pull jeacarlos3015/hola-mundo-app:latest</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      Desplegado con <span>Docker</span> · Imagen subida a <span>Docker Hub</span>
+    </div>
+  </div>
+
+  <script>
+    fetch('/api/info')
+      .then(r => r.json())
+      .then(d => {
+        document.getElementById('container-id').textContent = d.contenedor;
+        document.getElementById('timestamp').textContent = new Date(d.timestamp).toLocaleString('es-DO');
+      })
+      .catch(() => {
+        document.getElementById('container-id').textContent = 'local';
+        document.getElementById('timestamp').textContent = new Date().toLocaleString('es-DO');
+      });
+  </script>
+</body>
+</html>
